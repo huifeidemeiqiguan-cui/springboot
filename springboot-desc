@@ -1,0 +1,37 @@
+Spring Boot（学习网址：https://www.zhihu.com/question/39483566（很好）  慕课网  视频网址：https://www.imooc.com/video/13590(初级)  https://www.imooc.com/video/14336进阶）
+		springboot是新一代的spring框架，可以快速的构建spring程序，简化了说spring的开发，被认为是Spring MVC的“接班人”，和微服务紧密联系在一起。
+		Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，
+		从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。
+		用我的话来理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，
+		spring boot整合了所有的框架（不知道这样比喻是否合适）。
+	创建一个springboot项目
+		（1）首先下载一个专为Spring设计的eclipse版本， 网址 http://start.spring.io/
+		（2）尽量使用application.yml文件来代替application.properties，其内容如下（注意：冒号后面必须加空格*）
+			server:
+			  port: 8082
+			  context-path: /springboot
+			xyx:
+			  name: cui
+			age: 19
+			content: "age: ${age}"     #配置文件里加配置
+		
+2、springboot注解
+	@RestController  apring4之后新加的注解返回json格式数据（原来是@Controller配合@ResponseBody一起使用）
+	
+	@RequestMapping(value={"/hello","/hi"},method=RequestMethod.GET)（访问两个地址都能访问到此方法）
+	
+	@RequestMapping(value="/{id}/hello",method=RequestMethod.GET)
+	public String say(@PathVariable("id") Integer id){}
+	
+	@RequestParam注解的使用
+	url:localhost:8080/hello/say?id=111
+	@RequestMapping(value="/hello/say",method=RequestMethod.GET)
+	public String say(@RequestParam("id") Integer id){}
+	
+	@RequestMapping(value="/hello/say",method=RequestMethod.GET)
+	public String say(@RequestParam(value="id",required=false,defaultValue="0") Integer id){}//required是否必传，默认为0（0必须加引号，不支持Integer类型）
+	
+	组合注解，例如：
+	@RequestMapping(value="/hello/say",method=RequestMethod.GET)等同于@GetMapping(value="/hello/say") //如果是POST请求则为@PostMapping(value="/hello/say")
+	
+	可以用@Autowired注解的前提是在其所引用的类上面加@Component字样，相当于在spring配置文件中配置<bean>标签。
